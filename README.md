@@ -48,10 +48,10 @@ python3 wf_highlighter.py test_doc
 
 Before:
 
-![](Before.jpg)
+![](Pics/Before_0.jpg)
 
 After:
 
-![](After-1.jpg)
+![](Pics/After_0.jpg)
 
-![](After-2.jpg)
+![](Pics/After_1.jpg)
