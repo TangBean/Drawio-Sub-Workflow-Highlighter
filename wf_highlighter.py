@@ -62,7 +62,7 @@ def highlighter(filename, config):
                         existing_style = cell.get('style', '')
                         if not existing_style.endswith(GRAY_STYLE):
                             new_style = existing_style + GRAY_STYLE
-                        cell.set('style', new_style)
+                            cell.set('style', new_style)
 
             # Handle lines' highlight
             highlighted_lines_id_set = set()
@@ -73,7 +73,7 @@ def highlighter(filename, config):
                         existing_style = cell.get('style', '')
                         if not existing_style.endswith(GRAY_STYLE):
                             new_style = existing_style + GRAY_STYLE
-                        cell.set('style', new_style)
+                            cell.set('style', new_style)
                     else:
                         highlighted_lines_id_set.add(cell.get('id'))
 
