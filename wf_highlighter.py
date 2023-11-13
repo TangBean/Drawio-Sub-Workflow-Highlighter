@@ -8,12 +8,12 @@ GRAY_STYLE = "fillColor=#f5f5f5;fontColor=#CCCCCC;strokeColor=#CCCCCC;"
 
 
 def parse_wf_config_file(filename):
-    # 构建文件路径
+    # Build JSON file path
     filename += '.json'
     script_dir = os.path.dirname(__file__)
     file_path = os.path.join(script_dir, filename)
 
-    # 读取并解析JSON文件
+    # Read and parse JSON file
     try:
         with open(file_path, 'r') as file:
             data = json.load(file)
@@ -27,6 +27,7 @@ def parse_wf_config_file(filename):
 
 
 def highlighter(filename, config):
+    # Build drawio file path
     filename += '.drawio'
     script_dir = os.path.dirname(__file__)
     file_path = os.path.join(script_dir, filename)

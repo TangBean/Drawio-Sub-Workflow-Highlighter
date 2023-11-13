@@ -1,23 +1,33 @@
 # Drawio-Sub-Workflow-Highlighter
 
-A sub-workflow highlighter script for drawio
+A sub-workflow highlighter script for drawio.
+
+## Background
+
+Sometimes, we may need to create an extremely complicated diagram using drawio. 
+In such cases, it can be a challenge to explain the diagram effectively 
+and for the listener to understand it.
+
+A good solution in these situations is to explain the diagram part by part. 
+This approach helps break down the complexity and make it easier 
+for both you and the listener to comprehend.
+
+That is why I developed this small tool. 
+It can help you highlight the different parts of the diagram 
+using a workflows configuration file. 
+This will make managing and explaining such a complex diagram easier.
+
+Let me illustrate an example.
+
 
 ## Example
 
-The config file should use the same filename with the .drawio file. 
-And they totally should under the same folder, such as this:
+Suppose we have a complex diagram like this:
 
-```
-folder_name
- |
- +-- wf_highlighter.py
- |
- +-- test_doc.drawio
- |
- +-- test_doc.json
-```
+![](Pics/Before_0.jpg)
 
-Here is a config file format example:
+To facilitate explanation, we can separate it into two workflows. 
+So we can build a JSON config file like the following:
 
 ```json
 {
@@ -40,17 +50,27 @@ Here is a config file format example:
 }
 ```
 
-Then, run the python script in the terminal:
+NOTE: The configuration file should have the same filename as the .drawio file. 
+Additionally, they should both be located in the same folder, as shown below:
+
+```
+folder_name
+ |
+ +-- wf_highlighter.py
+ |
+ +-- test_doc.drawio
+ |
+ +-- test_doc.json
+```
+
+Then, run the python script in the terminal as this:
 
 ```
 python3 wf_highlighter.py test_doc
 ```
 
-Before:
-
-![](Pics/Before_0.jpg)
-
-After:
+We can finally receive some highlighted workflow pictures 
+in the sub-tab of this drawio file like this:
 
 ![](Pics/After_0.jpg)
 
