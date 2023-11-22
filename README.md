@@ -45,7 +45,10 @@ So we can build a JSON config file like the following:
     "Test 9",
     "Test 10",
     "Test 7",
-    "Test 4"
+    "Test 4",
+    "Test 13"  // Test 11 and Test 12 have been included by Test 13, 
+               // only config a Test 13 here is enough. The script will 
+               // help to involve Test 11 and Test 12 automatically
   ]
 }
 ```
@@ -75,3 +78,9 @@ in the sub-tab of this drawio file like this:
 ![](Pics/After_0.jpg)
 
 ![](Pics/After_1.jpg)
+
+## Note Points
+
+1. The names of the nodes in the diagram should be different. 
+If two different nodes have the same name, 
+please use node(1) and node(2) to distinguish them.

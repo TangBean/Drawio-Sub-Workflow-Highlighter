@@ -2,13 +2,12 @@ import os
 import sys
 import json
 import copy
-import xml.etree.ElementTree as ET
+import xml.etree.ElementTree as ElementTree
 
 GRAY_STYLE = "fillColor=#f5f5f5;fontColor=#CCCCCC;strokeColor=#CCCCCC;"
 
 
 def parse_wf_config_file(filename):
-    # Build JSON file path
     filename += '.json'
     script_dir = os.path.dirname(__file__)
     file_path = os.path.join(script_dir, filename)
@@ -26,14 +25,20 @@ def parse_wf_config_file(filename):
         return {}
 
 
+def highlighted_children(new_diagram, highlighted_id_set):
+    for cell in new_diagram.findall('.//mxCell'):
+        if cell.get('style') is not None:
+            if cell.get('source') is None and cell.get('target') is None and cell.get('parent') in highlighted_id_set:
+                highlighted_id_set.add(cell.get('id'))
+
+
 def highlighter(filename, config):
-    # Build drawio file path
     filename += '.drawio'
     script_dir = os.path.dirname(__file__)
     file_path = os.path.join(script_dir, filename)
 
     # Load and parse drawio file and get the root node
-    tree = ET.parse(file_path)
+    tree = ElementTree.parse(file_path)
     root = tree.getroot()
 
     # Get the first diagram node
@@ -52,40 +57,34 @@ def highlighter(filename, config):
             new_diagram = copy.deepcopy(diagram)
             new_diagram.set('name', new_diagram_name)
 
-            # Go through all the mxCell nodes under new_diagram and modify the style property, make it become gray
-            gray_nodes_id_set = set()
+            # Get highlighted nodes id set
+            highlighted_id_set = set()
+            for cell in new_diagram.findall('.//mxCell'):
+                if cell.get('style') is not None:
+                    if cell.get('value') in new_diagram_nodes:
+                        highlighted_id_set.add(cell.get('id'))
+
+            # Get the children of these highlighted nodes id set, except lines
+            highlighted_children(new_diagram, highlighted_id_set)
+
+            # Get the highlighted line ids
             for cell in new_diagram.findall('.//mxCell'):
                 if cell.get('value') not in new_diagram_nodes and cell.get('style') is not None:
-                    # Do not handle lines at this step, will handle them later
-                    if cell.get('source') is None and cell.get('target') is None:
-                        gray_nodes_id_set.add(cell.get('id'))
+                    if (cell.get('source') is not None and cell.get('source') in highlighted_id_set
+                            and cell.get('target') is not None and cell.get('target') in highlighted_id_set):
+                        highlighted_id_set.add(cell.get('id'))
 
+            # Get the children of these highlighted nodes id set, for lines' label
+            highlighted_children(new_diagram, highlighted_id_set)
+
+            # Start dimming
+            for cell in new_diagram.findall('.//mxCell'):
+                if cell.get('style') is not None:
+                    if cell.get('id') not in highlighted_id_set:
                         existing_style = cell.get('style', '')
                         if not existing_style.endswith(GRAY_STYLE):
                             new_style = existing_style + GRAY_STYLE
                             cell.set('style', new_style)
-
-            # Handle lines' highlight
-            highlighted_lines_id_set = set()
-            for cell in new_diagram.findall('.//mxCell'):
-                if cell.get('value') not in new_diagram_nodes and cell.get('style') is not None:
-                    if not (cell.get('source') is not None and cell.get('source') not in gray_nodes_id_set
-                            and cell.get('target') is not None and cell.get('target') not in gray_nodes_id_set):
-                        existing_style = cell.get('style', '')
-                        if not existing_style.endswith(GRAY_STYLE):
-                            new_style = existing_style + GRAY_STYLE
-                            cell.set('style', new_style)
-                    else:
-                        highlighted_lines_id_set.add(cell.get('id'))
-
-            # Recover the labels' color whose parent are highlighted lines
-            for cell in new_diagram.findall('.//mxCell'):
-                if cell.get('parent') in highlighted_lines_id_set:
-                    existing_style = cell.get('style', '')
-                    if existing_style.endswith(GRAY_STYLE):
-                        new_style = existing_style[:-len(GRAY_STYLE)]
-                        new_style += 'labelBackgroundColor=#FFFFFF;'
-                        cell.set('style', new_style)
 
             # Add the new_diagram into root
             root.append(new_diagram)
