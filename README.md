@@ -92,10 +92,24 @@ python3 wf_highlighter.py test_doc
 We can finally receive some highlighted workflow pictures 
 in the sub-tab of this drawio file like this:
 
+**workflow 1**
+
 ![](Pics/test_doc-workflow_1.jpg)
+
+**workflow 2**
+
 ![](Pics/test_doc-workflow_2.jpg)
+
+**workflow 3**
+
 ![](Pics/test_doc-workflow_3.jpg)
+
+**workflow 4**
+
 ![](Pics/test_doc-workflow_4.jpg)
+
+**workflow 5**
+
 ![](Pics/test_doc-workflow_5.jpg)
 
 ## Note Points
