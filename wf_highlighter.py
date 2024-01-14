@@ -41,23 +41,25 @@ def highlighter(filename, config):
     tree = ElementTree.parse(file_path)
     root = tree.getroot()
 
-    # Get the first diagram node
-    diagram = root.find('diagram')
+    # Get the main diagram node, this diagram include all the nodes
+    main_diagram = root.find('diagram')
 
-    if diagram is not None:
-        # Go through the nodes under root and delete all these diagram nodes except the first diagram
+    if main_diagram is not None:
+        # Clean the old sub diagrams
         for node in root.findall('diagram'):
-            if node is not diagram:
+            if node is not main_diagram:
                 root.remove(node)
 
+        # `new_diagram_name` is the sub-workflow name
+        # `new_diagram_nodes` is the sub-workflow node set
         for new_diagram_name, new_diagram_nodes in config.items():
             new_diagram_nodes = set(new_diagram_nodes)
 
-            # Make a copy of the first diagram node and update the name of the new_diagram
-            new_diagram = copy.deepcopy(diagram)
+            # Make a copy of the main diagram node and update the name of the new_diagram
+            new_diagram = copy.deepcopy(main_diagram)
             new_diagram.set('name', new_diagram_name)
 
-            # Get highlighted nodes id set
+            # Get basic highlighted nodes id set based on the configuration
             highlighted_id_set = set()
             for cell in new_diagram.findall('.//mxCell'):
                 if cell.get('style') is not None:

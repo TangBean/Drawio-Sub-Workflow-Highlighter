@@ -24,7 +24,7 @@ Let me illustrate an example.
 
 Suppose we have a complex diagram like this:
 
-![](Pics/Before_0.jpg)
+![](Pics/test_doc-Page-1.jpg)
 
 To facilitate explanation, we can separate it into two workflows. 
 So we can build a JSON config file like the following:
@@ -35,23 +35,40 @@ So we can build a JSON config file like the following:
     "Test 1",
     "Test 2",
     "Test 3",
-    "Test 4",
+    "Test 4"
+  ],
+  "workflow 2": [
+    "Test 1",
+    "Test 2",
     "Test 5",
     "Test 6",
     "Test 7"
   ],
-  "workflow 2": [
+  "workflow 3": [
     "Test 8",
     "Test 9",
     "Test 10",
     "Test 7",
-    "Test 4",
-    "Test 13"  // Test 11 and Test 12 have been included by Test 13, 
-               // only config a Test 13 here is enough. The script will 
-               // help to involve Test 11 and Test 12 automatically
+    "Test 4"
+  ],
+  "workflow 4": [
+    "Test 8",
+    "Test 9",
+    "Test 13",
+    "Test 14"
+  ],
+  "workflow 5": [
+    "Test 8",
+    "Test 9",
+    "Test 13",
+    "Test 15"
   ]
 }
 ```
+
+> In the above configuration, [Test 11] and [Test 12] have been included by [Test 13], 
+> only config a [Test 13] here is enough. 
+> The script will help to involve [Test 11] and [Test 12] automatically.
 
 NOTE: The configuration file should have the same filename as the .drawio file. 
 Additionally, they should both be located in the same folder, as shown below:
@@ -75,9 +92,11 @@ python3 wf_highlighter.py test_doc
 We can finally receive some highlighted workflow pictures 
 in the sub-tab of this drawio file like this:
 
-![](Pics/After_0.jpg)
-
-![](Pics/After_1.jpg)
+![](Pics/test_doc-workflow_1.jpg)
+![](Pics/test_doc-workflow_2.jpg)
+![](Pics/test_doc-workflow_3.jpg)
+![](Pics/test_doc-workflow_4.jpg)
+![](Pics/test_doc-workflow_5.jpg)
 
 ## Note Points
 
