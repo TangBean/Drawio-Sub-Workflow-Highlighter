@@ -69,7 +69,7 @@ def highlighter(filename, config):
             # Get the children of these highlighted nodes id set, except lines
             highlighted_children(new_diagram, highlighted_id_set)
 
-            # Get the highlighted line ids
+            # Get the highlighted line ids set
             for cell in new_diagram.findall('.//mxCell'):
                 if cell.get('value') not in new_diagram_nodes and cell.get('style') is not None:
                     if (cell.get('source') is not None and cell.get('source') in highlighted_id_set
