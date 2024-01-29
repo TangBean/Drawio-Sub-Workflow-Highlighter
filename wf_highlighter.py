@@ -63,7 +63,7 @@ def highlighter(filename, config):
             highlighted_id_set = set()
             for cell in new_diagram.findall('.//mxCell'):
                 if cell.get('style') is not None:
-                    if cell.get('value') in new_diagram_nodes:
+                    if cell.get('value') in new_diagram_nodes or cell.get('id') in new_diagram_nodes:
                         highlighted_id_set.add(cell.get('id'))
 
             # Get the children of these highlighted nodes id set, except lines

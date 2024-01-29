@@ -58,6 +58,7 @@ So we can build a JSON config file like the following:
     "Test 14"
   ],
   "workflow 5": [
+    "fplBdTRkaOgmaC_dWYxu-1",
     "Test 8",
     "Test 9",
     "Test 13",
@@ -117,3 +118,10 @@ in the sub-tab of this drawio file like this:
 1. The names of the nodes in the diagram should be different. 
 If two different nodes have the same name, 
 please use node(1) and node(2) to distinguish them.
+2. You can also use the node id as the node name, such the `fplBdTRkaOgmaC_dWYxu-1` in workflow 5.
+Because there isn't a name of that node, it is a difficulty for us to configurate a node like that 
+in the configuration file.
+For this kind of case, you can configurate it though the id of the node. The node's id can be found 
+at here:
+![](Pics/Find-node-id-1.jpg)
+![](Pics/Find-node-id-2.jpg)
