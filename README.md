@@ -123,7 +123,5 @@ Because there isn't a name of that node, it is a difficulty for us to configurat
 in the configuration file.
 For this kind of case, you can configurate it though the id of the node. The node's id can be found 
 at here:
-
 ![](Pics/Find-node-id-1.jpg)
-
 ![](Pics/Find-node-id-2.jpg)
